@@ -546,9 +546,11 @@ class TranslationSetting(QDialog):
         self.papago_client_id = QLineEdit()
         self.papago_client_secret = QLineEdit()
         self.papago_glossary_key = QLineEdit()
+        self.papago_is_novel_translate = QCheckBox()
         papago_layout.addRow(_('Client Id'), self.papago_client_id)
         papago_layout.addRow(_('Client Secret'), self.papago_client_secret)
         papago_layout.addRow(_('Glossary Key'), self.papago_glossary_key)
+        papago_layout.addRow(_('Is Novel Translate'), self.papago_is_novel_translate)
 
         layout.addWidget(papago_group)
 
@@ -684,6 +686,10 @@ class TranslationSetting(QDialog):
                 config.get('client_secret', self.current_engine.client_secret))
             self.papago_glossary_key.setText(
                 config.get('glossary_key', self.current_engine.glossary_key))
+            self.papago_is_novel_translate.setChecked(
+                config.get('is_novel_translate', self.current_engine.is_novel_translate))
+            self.papago_is_novel_translate.toggled.connect(
+                lambda checked: config.update(is_novel_translate=checked))
 
         def choose_default_engine(index):
             engine_name = engine_list.itemData(index)
