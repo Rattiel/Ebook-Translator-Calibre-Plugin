@@ -74,7 +74,6 @@ class PapagoTranslate(Base):
         split_text = re.split(punctuation_pattern, text)
 
         result = ""
-        split_text_len = len(split_text)
         for index, target_text in enumerate(split_text):
             if target_text not in translate_ignore_mark:
                 if index > 1 and split_text[index - 1] in punctuation_marks:
@@ -85,9 +84,5 @@ class PapagoTranslate(Base):
                     result += japanese_mark[target_text]
                 else:
                     result += target_text
-
-                #if index < split_text_len - 1:
-                #    if split_text[index + 1] not in white_space_not_need_marks:
-                #        result += white_space
 
         return result
